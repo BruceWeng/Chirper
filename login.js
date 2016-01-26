@@ -28,3 +28,17 @@ passport.serializeUser(function (user, done) {
 passport.deserializeUser(function (cid, done) {
     done(null, users.get(cid));
 });
+
+var router = require('express').Router();
+var bodyParser = require('body-parser');
+
+router.use(bodyParser.urlencoded({ extended: true })); // Login Page, pass url body to a object
+router.use(bodyParser.json()); // pass API body to a object
+router.use(requre('cookie-parser')());
+router.use(require('express-session')) {
+    secret: 'asfgfdsyeyhsdhtserq4wer5754w865eurth',
+    resave: false,
+    saveUninitialized: true
+}));
+router.use(passport.initialize());
+router.use(passport.session());
