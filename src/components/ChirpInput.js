@@ -4,7 +4,6 @@ var ChirpInput = React.createClass({
     getInitialState: function () {
         return {
             value: ''
-
         };
     },
     render: function () {
