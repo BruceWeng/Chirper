@@ -5,6 +5,7 @@ express()
   .set('view engine', 'ejs')
   .use(express.static('./public'))
   .use(login.routes)
+  .use(require('./chirps'))
   .get('*', login.required, function (request, response) {
     response.render('index', {
         user: login.safe(request.user)
