@@ -22,7 +22,7 @@ passport.use(new LocalStrategy(function (username, password, done) {
 }));
 
 passport.serializeUser(function (user, done) {
-    done(null, user.cid); // client id, locally id given by locally id to each of the record
+    done(null, user.cid);
 });
 
 passport.deserializeUser(function (cid, done) {
@@ -32,40 +32,39 @@ passport.deserializeUser(function (cid, done) {
 var router = require('express').Router();
 var bodyParser = require('body-parser');
 
-router.use(bodyParser.urlencoded({ extended: true })); // Login Page, pass url body to a object
-router.use(bodyParser.json()); // pass API body to a object
+router.use(bodyParser.urlencoded({ extended: true })); // Login Page
+router.use(bodyParser.json()); // API
 router.use(require('cookie-parser')());
 router.use(require('express-session')({
-    secret: 'asfgfdsyeyhsdhtserq4wer5754w865eurth',
+    secret: 'p7r6uktdhmcgvho8o6e5ysrhxmcgjfkot7r6elu5dtjt7lirfyj',
     resave: false,
     saveUninitialized: true
 }));
 router.use(passport.initialize());
 router.use(passport.session());
 
-router.get('/login', function (request, response) {
-    response.render('login');
+router.get('/login', function (req, res) {
+    res.render('login');
 });
 
-router.post('/signup', function (request, response, next) {
-    if (users.where({ username: request.body.username }).items.length === 0) {
-        //no user
+router.post('/signup', function (req, res, next) {
+    if (users.where({ username: req.body.username }).items.length === 0) {
         var user = {
-            fullname: request.body.fullname,
-            email: request.body.email,
-            username: request.body.username,
-            passwordHash: hash(request.body.password),
+            fullname: req.body.fullname,
+            email: req.body.email,
+            username: req.body.username,
+            passwordHash: hash(req.body.password),
             following: []
         };
 
         var userId = users.insert(user);
 
-        request.login(users.get(userId), function (err) {
+        req.login(users.get(userId), function (err) {
             if (err) return next(err);
-            response.redirect('/');
+            res.redirect('/');
         });
     } else {
-        response.redirect('/login');
+        res.redirect('/login');
     }
 });
 
@@ -74,23 +73,23 @@ router.post('/login', passport.authenticate('local', {
     failureRedirect: '/login'
 }));
 
-router.get('/logout', function (request, response) {
-    request.logout();
-    response.redirect('/login');
+router.get('/logout', function (req, res) {
+    req.logout();
+    res.redirect('/login');
 });
 
-function loginRequired (request, response, next) {
-    if (request.isAuthenticated()) {
+function loginRequired (req, res, next) {
+    if (req.isAuthenticated()) {
         next();
     } else {
-        response.redirect('/login');
+        res.redirect('/login');
     }
 }
 
 function makeUserSafe (user) {
     var safeUser = {};
 
-    var safeKeys = ['cid', 'fullname', 'email', 'username', 'following']; // white list
+    var safeKeys = ['cid', 'fullname', 'email', 'username', 'following'];
 
     safeKeys.forEach(function (key) {
         safeUser[key] = user[key];

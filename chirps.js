@@ -13,6 +13,11 @@ router.route('/api/chirps')
         var chirp = request.body;
         chirp.userId = request.user.cid;
 
+        // TO BE REMOVED
+        chirp.username = request.user.username;
+        chirp.fullname = request.user.fullname;
+        chirp.email = request.user.email;
+
         var id = chirps.insert(chirp);
         response.json(chirps.get(id));
     });
