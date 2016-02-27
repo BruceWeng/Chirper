@@ -5,5 +5,5 @@ exports.avatar = function (email) {
 
     email = crypto.createHash('md5').update(email).digest('hex');
 
-    return 'http://www.gravatar.com/avatar' + email + '?=92';
+    return 'http://www.gravatar.com/avatar/' + email + '?s=92';
 };
