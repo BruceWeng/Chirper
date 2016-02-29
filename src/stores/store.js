@@ -28,7 +28,7 @@ var storeMethods = {
     all: function () {
         return this._data;
     },
-    get: function () {
+    get: function (id) {
         return this._data.filter(function (item) {
             return item.cid === id;
         })[0];

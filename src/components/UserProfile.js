@@ -29,8 +29,8 @@ var UserProfile = module.exports = React.createClass({
 
                 <p> <FollowButton userId={this.state.user.cid} /> </p>
 
-                <ul>
-                    {chirps}
+                <ul className='history'>
+                    <strong>History Chirps</strong>{chirps}
                 </ul>
             </div>
         </div>);
