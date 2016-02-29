@@ -13,15 +13,7 @@ var UserList = module.exports = React.createClass({
             user: UserStore.currentUser,
         };
     },
-    componentDidMount: function () {
-        UserStore.addChangeListener(this.onChange);
-    },
-    componentWillUnmount: function () {
-        UserStore.removeChangeListener(this.onChange);
-    },
-    onChange: function () {
-        this.setState(this.getInitialState());
-    },
+    mixins: [UserStore.mixin()],
     render: function () {
         var items = this.state.users.filter(function (user) {
             return this.state.user.cid !== user.cid;

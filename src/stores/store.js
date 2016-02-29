@@ -51,11 +51,29 @@ var storeMethods = {
     }
 };
 
+var num = 1;
+
 exports.extend = function (methods) {
     // Create stores by combinding lots of objects
     var store = {
         _data: [],
-        actions: {}
+        actions: {},
+        mixin: function () {
+            var n =num++;
+            var obj = {
+                componentDidMount: function () {
+                    store.addChangeListener(this['onChange' + n]);
+                },
+                componentWillUnmount: function () {
+                    store.removeChangeListener(this['onChange' + n]);
+                }
+            };
+
+            obj['onChange' + n] = function () {
+                this.setState(this.getInitialState());
+            };
+            return obj;
+        }
     };
     //all functions in EventEmitterProto object and storeMethods properties will be copied to store objects
     assign(store, EventEmitterProto, storeMethods, methods);
