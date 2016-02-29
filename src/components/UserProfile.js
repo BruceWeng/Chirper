@@ -25,7 +25,7 @@ var UserProfile = module.exports = React.createClass({
             <div className='ten columns'>
 
                 <h1> {this.state.user.fullname} </h1>
-                <h3 className='timestamp'> {this.state.user.username} </h3>
+                <h3 className='timestamp'> @{this.state.user.username} </h3>
 
                 <p> <FollowButton userId={this.state.user.cid} /> </p>
 

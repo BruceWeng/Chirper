@@ -59,7 +59,7 @@ exports.extend = function (methods) {
         _data: [],
         actions: {},
         mixin: function () {
-            var n =num++;
+            var n = num++;
             var obj = {
                 componentDidMount: function () {
                     store.addChangeListener(this['onChange' + n]);
