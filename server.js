@@ -11,6 +11,6 @@ express()
         user: login.safe(request.user)
     });
   })
-  .listen(3000, function () {
+  .listen(process.env.PORT || 3000, function () {
     console.log('Listening on port 3000');
   });
