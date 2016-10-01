@@ -1,6 +1,13 @@
 # News Feed App with React and Flux architecture.
 Online networking community for lovers of stream of consciousness writing to connect through their micro posts.
 
+## Feature
+
+- Authentication
+- Micro Blog
+- News Feed
+- Follow and Unfollow
+
 ## Stack
 
 - React
@@ -11,6 +18,7 @@ Online networking community for lovers of stream of consciousness writing to con
 - Passport
 - gulp
 - browserify
+- Pull Model
 
 Quick Start
 -----------
